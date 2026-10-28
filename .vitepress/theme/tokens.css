@@ -1,0 +1,54 @@
+@font-face {
+  font-family: "Inter V";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: local("Inter V"), local("InterV"), local("Inter var"), local("Inter Variable"), local("InterVariable"), url("/fonts/InterVariable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter V fallback - Arial";
+  src: local("Arial");
+  font-display: swap;
+  font-weight: 100 900;
+  font-style: normal;
+  size-adjust: 107.1194%;
+  ascent-override: 90.4365%;
+  descent-override: 22.518%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --hue-brand: 308;
+
+  --color-text-raise: oklch(20% 5% var(--hue-brand));
+  --color-text-default: oklch(35% 5% var(--hue-brand));
+  --color-text-secondary: oklch(45% 5% var(--hue-brand));
+  --color-surface-default: oklch(98% 0.5% var(--hue-brand));
+  --color-surface-secondary: oklch(92% 2% var(--hue-brand));
+  --color-surface-tertiary: oklch(95% 1.5% var(--hue-brand));
+  --color-stroke-default: oklch(80.126% 5% var(--hue-brand));
+  --color-stroke-secondary: oklch(94.213% 1.355% var(--hue-brand));
+  --color-underline-default: oklch(65% 25% var(--hue-brand));
+  --color-text-brand: oklch(45% 25% var(--hue-brand));
+  --color-surface-brand: oklch(95% 4% var(--hue-brand));
+  --color-surface-brand-interact: oklch(92% 10% var(--hue-brand));
+
+  --font-base: "Inter V", "Inter", "Inter V fallback - Arial", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+
+.dark {
+  --color-text-raise: oklch(99.5% 0.85% var(--hue-brand));
+  --color-text-default: oklch(85% 6% var(--hue-brand));
+  --color-text-secondary: oklch(73% 6% var(--hue-brand));
+  --color-surface-default: oklch(22% 2% var(--hue-brand));
+  --color-surface-secondary: oklch(25% 1.5% var(--hue-brand));
+  --color-surface-tertiary: oklch(23% 1% var(--hue-brand));
+  --color-stroke-default: oklch(45% 3.4% var(--hue-brand));
+  --color-stroke-secondary: oklch(30% 1.5% var(--hue-brand));
+  --color-underline-default: oklch(60% 30% var(--hue-brand));
+  --color-text-brand: oklch(75% 30% var(--hue-brand));
+  --color-surface-brand: oklch(25% 6% var(--hue-brand));
+  --color-surface-brand-interact: oklch(27% 9% var(--hue-brand));
+}

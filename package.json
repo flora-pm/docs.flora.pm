@@ -1,0 +1,14 @@
+{
+  "name": "docs.flora.pm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "redoc": "^2.5.4",
+    "vitepress": "^1.6.4"
+  }
+}

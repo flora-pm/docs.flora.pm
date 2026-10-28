@@ -1,0 +1,23 @@
+:root,
+.dark {
+  --vp-font-family-base: var(--font-base);
+  --vp-font-family-mono: var(--font-mono);
+
+  --vp-c-brand-1: var(--color-text-brand);
+  --vp-c-brand-2: var(--color-underline-default);
+  --vp-c-brand-3: var(--color-text-brand);
+  --vp-c-brand-soft: var(--color-surface-brand-interact);
+
+  --vp-c-text-1: var(--color-text-raise);
+  --vp-c-text-2: var(--color-text-default);
+  --vp-c-text-3: var(--color-text-secondary);
+
+  --vp-c-bg: var(--color-surface-default);
+  --vp-c-bg-alt: var(--color-surface-tertiary);
+  --vp-c-bg-soft: var(--color-surface-brand);
+  --vp-c-bg-elv: var(--color-surface-default);
+
+  --vp-c-divider: var(--color-stroke-secondary);
+  --vp-c-border: var(--color-stroke-default);
+  --vp-c-gutter: var(--color-stroke-secondary);
+}

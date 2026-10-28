@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Reference documentation for the Flora HTTP API." />
+    <title>API Reference | Flora Documentation</title>
+    <link rel="icon" href="%BASE%favicon.ico" />
+    <script>
+      document.documentElement.classList.toggle('dark', matchMedia('(prefers-color-scheme: dark)').matches)
+    </script>
+    <style>
+%TOKENS%
+    </style>
+    <style>
+      body {
+        margin: 0;
+        background: var(--color-surface-default);
+        color: var(--color-text-raise);
+        font-family: var(--font-base);
+      }
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        height: 64px;
+        padding: 0 32px;
+        background: var(--color-surface-default);
+        border-bottom: 1px solid var(--color-stroke-secondary);
+      }
+
+      .header a {
+        color: var(--color-text-default);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .header a:hover,
+      .header a[aria-current="page"] {
+        color: var(--color-text-brand);
+      }
+
+      .header .logo {
+        display: flex;
+      }
+
+      .header .logo img {
+        height: 24px;
+      }
+
+      .header .title {
+        margin-right: auto;
+        color: var(--color-text-raise);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          gap: 16px;
+          padding: 0 16px;
+        }
+
+        .header .title,
+        .header .external {
+          display: none;
+        }
+
+        .header .logo {
+          margin-right: auto;
+        }
+      }
+
+      .error {
+        margin: 2rem;
+        color: #f2484b;
+      }
+    </style>
+    <script defer src="%REDOC_SRC%"></script>
+  </head>
+  <body>
+    <header class="header">
+      <a class="logo" href="https://flora.pm">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="%BASE%logo_dark_mode.svg" />
+          <img src="%BASE%logo_light_mode.svg" alt="flora.pm" />
+        </picture>
+      </a>
+      <a class="title" href="%BASE%">Flora Documentation</a>
+      <a href="%BASE%">Guides</a>
+      <a href="%BASE%api-reference" aria-current="page">API Reference</a>
+      <a class="external" href="https://flora.pm">flora.pm</a>
+      <a class="external" href="https://github.com/flora-pm/docs.flora.pm">GitHub</a>
+    </header>
+    <noscript><p class="error">The API Reference needs JavaScript.</p></noscript>
+    <main id="redoc"></main>
+    <script>
+      (() => {
+        const specUrl = %SPEC_URL%
+        const spec = fetch(specUrl).then((response) => (response.ok ? response.json() : Promise.reject(response.status)))
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => location.reload())
+
+        const canvas = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+        const token = (name) => {
+          canvas.fillStyle = getComputedStyle(document.documentElement).getPropertyValue(name)
+          canvas.fillRect(0, 0, 1, 1)
+          const [r, g, b] = canvas.getImageData(0, 0, 1, 1).data
+          return `rgb(${r}, ${g}, ${b})`
+        }
+
+        const theme = () => {
+          const base = {
+            colors: {
+              primary: { main: token('--color-text-brand') },
+              error: { main: '#f2484b' },
+              success: { main: '#26a149' },
+            },
+            typography: {
+              fontFamily: 'var(--font-base)',
+              headings: { fontFamily: 'var(--font-base)' },
+              code: { fontFamily: 'var(--font-mono)' },
+            },
+            sidebar: { width: '300px' },
+          }
+          if (!document.documentElement.classList.contains('dark')) return base
+          return {
+            ...base,
+            colors: {
+              ...base.colors,
+              text: { primary: token('--color-text-default'), secondary: token('--color-text-secondary') },
+              border: { dark: token('--color-stroke-default'), light: token('--color-stroke-secondary') },
+            },
+            sidebar: { ...base.sidebar, backgroundColor: token('--color-surface-tertiary'), textColor: token('--color-text-default') },
+            rightPanel: { backgroundColor: token('--color-surface-secondary'), textColor: token('--color-text-raise') },
+            schema: {
+              nestedBackground: token('--color-surface-brand'),
+              linesColor: token('--color-stroke-default'),
+              typeNameColor: token('--color-text-secondary'),
+            },
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const container = document.getElementById('redoc')
+          const showError = () => {
+            const message = document.createElement('p')
+            message.className = 'error'
+            message.textContent = `Could not load the API specification from ${specUrl}.`
+            container.before(message)
+            container.hidden = true
+          }
+          if (!window.Redoc) return showError()
+          spec.then(
+            (definition) => Redoc.init(definition, { scrollYOffset: '.header', theme: theme() }, container, (error) => error && showError()),
+            showError,
+          )
+        })
+      })()
+    </script>
+  </body>
+</html>
